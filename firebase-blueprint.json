@@ -1,0 +1,121 @@
+{
+  "entities": {
+    "Tool": {
+      "title": "AI Tool",
+      "description": "A curated AI tool in the directory.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "description": "Name of the tool" },
+        "tagline": { "type": "string", "description": "Short catchy description" },
+        "description": { "type": "string", "description": "Full description" },
+        "logoUrl": { "type": "string", "description": "URL to tool logo" },
+        "category": { "type": "string", "enum": ["Writing", "Video", "Image", "Automation", "Coding", "Marketing", "Business", "Productivity"] },
+        "pricing": { "type": "string", "enum": ["Free", "Paid", "Freemium"] },
+        "trending": { "type": "boolean" },
+        "hidden": { "type": "boolean" },
+        "upcoming": { "type": "boolean" },
+        "rating": { "type": "number" },
+        "reviewsCount": { "type": "integer" },
+        "websiteUrl": { "type": "string" },
+        "useCases": { "type": "array", "items": { "type": "string" } },
+        "pros": { "type": "array", "items": { "type": "string" } },
+        "cons": { "type": "array", "items": { "type": "string" } },
+        "alternatives": { "type": "array", "items": { "type": "string" } },
+        "videoPreviewUrl": { "type": "string" },
+        "trendingScore": { "type": "number" },
+        "growthIndicator": { "type": "string", "enum": ["rising", "stable", "declining"] },
+        "earlySignal": { "type": "boolean" },
+        "launchStage": { "type": "string", "enum": ["beta", "waitlist", "live"] },
+        "futureImpact": { "type": "string" },
+        "verified": { "type": "boolean" },
+        "qualityScore": { "type": "number" },
+        "isToolOfTheDay": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "tagline", "description", "category", "websiteUrl"]
+    },
+    "News": {
+      "title": "AI News & Trends",
+      "description": "Short, powerful updates about AI trends.",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "summary": { "type": "string" },
+        "content": { "type": "string" },
+        "imageUrl": { "type": "string" },
+        "tags": { "type": "array", "items": { "type": "string" } },
+        "author": { "type": "string" },
+        "publishedAt": { "type": "string", "format": "date-time" },
+        "insight": { "type": "string", "description": "🧠 What This Means" },
+        "type": { "type": "string", "enum": ["AI", "Startup", "Funding", "Launch"] }
+      },
+      "required": ["title", "summary", "publishedAt"]
+    },
+    "Workflow": {
+      "title": "AI Workflow",
+      "description": "A step-by-step AI execution plan.",
+      "type": "object",
+      "properties": {
+        "goal": { "type": "string" },
+        "steps": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "step": { "type": "string" },
+              "description": { "type": "string" },
+              "tools": { "type": "array", "items": { "type": "object", "properties": { "name": { "type": "string" }, "reason": { "type": "string" } } } }
+            }
+          }
+        },
+        "userId": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      }
+    },
+    "UserProfile": {
+      "title": "User Profile",
+      "description": "User account and personalization data.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string" },
+        "displayName": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "bookmarks": { "type": "array", "items": { "type": "string" } },
+        "role": { "type": "string", "enum": ["user", "admin"] },
+        "isCreator": { "type": "boolean" },
+        "collections": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string" },
+              "title": { "type": "string" },
+              "description": { "type": "string" },
+              "toolIds": { "type": "array", "items": { "type": "string" } }
+            }
+          }
+        }
+      }
+    },
+    "Analytics": {
+      "title": "Platform Analytics",
+      "description": "Usage and revenue tracking.",
+      "type": "object",
+      "properties": {
+        "toolId": { "type": "string" },
+        "views": { "type": "integer" },
+        "clicks": { "type": "integer" },
+        "revenue": { "type": "number" },
+        "date": { "type": "string", "format": "date" }
+      }
+    }
+  },
+  "firestore": {
+    "/tools/{toolId}": { "schema": "Tool", "description": "Main tool directory" },
+    "/news/{newsId}": { "schema": "News", "description": "AI Pulse feed" },
+    "/workflows/{workflowId}": { "schema": "Workflow", "description": "User-generated workflows" },
+    "/users/{userId}": { "schema": "UserProfile", "description": "User accounts" },
+    "/analytics/{analyticsId}": { "schema": "Analytics", "description": "Platform performance metrics" }
+  }
+}
